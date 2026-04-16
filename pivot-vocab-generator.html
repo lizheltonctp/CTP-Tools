@@ -351,7 +351,6 @@ textarea:focus, input[type=text]:focus {
 
   <!-- SCREEN 1: INTRO -->
   <div class="screen on" id="s-intro">
-    <div class="eyebrow">Before your pivot matrix</div>
     <h1 class="hero-title">Find the language<br>for <em>your pivot.</em></h1>
     <p class="hero-body">Most people get stuck not because they lack direction, but because they don't have the vocabulary to describe where they want to go — or to recognize the roles that are actually a fit. This tool fixes that. Tell us about your background and we'll generate a personalized menu of pivot options: roles you might not have considered, industries that want your skills, and the search terms that will actually surface them.</p>
 
@@ -486,7 +485,7 @@ textarea:focus, input[type=text]:focus {
   <div class="screen" id="s-results">
     <div class="results-header">
       <h1 class="results-title">Your pivot vocabulary</h1>
-      <p class="results-sub">Three views of the same picture — browse all three, then bring what resonates into your worksheet.</p>
+      <p class="results-sub">Browse all three views and copy what resonates — your roles, your industries, your search terms.</p>
     </div>
 
     <div class="view-tabs">
@@ -912,7 +911,7 @@ function renderResults() {
           </div>
         </div>
         <div class="resp-right">
-          <div class="resp-titles"><strong>Job titles hiding this</strong>${r.jobTitlesHidingThis.join('<br>')}</div>
+          <div class="resp-titles"><strong>Job Titles to Search</strong>${r.jobTitlesHidingThis.join('<br>')}</div>
         </div>
       </div>`;
     });
