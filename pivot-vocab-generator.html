@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pivot Vocabulary Generator — Career Transformation Partners</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --ink: #18181B;
+  --ink-mid: #52525B;
+  --ink-light: #A1A1AA;
+  --paper: #FAFAF9;
+  --warm: #F5F0E8;
+  --surface: #FFFFFF;
+  --moss: #3D6B4F;
+  --moss-lt: #EBF2EC;
+  --moss-md: #6B9E7D;
+  --gold: #B45309;
+  --gold-lt: #FEF3C7;
+  --blue: #1E40AF;
+  --blue-lt: #EFF6FF;
+  --border: rgba(24,24,27,0.1);
+  --border-md: rgba(24,24,27,0.18);
+  --r: 10px;
+  --r-sm: 6px;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* ── HEADER ── */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand-dot {
+  width: 26px; height: 26px; border-radius: 50%;
+  background: var(--moss);
+  position: relative; flex-shrink: 0;
+}
+.brand-dot::before {
+  content: ''; position: absolute;
+  width: 10px; height: 10px; border-radius: 50%;
+  background: rgba(255,255,255,.25);
+  top: 4px; left: 4px;
+}
+.brand-name { font-family: 'Libre Baskerville', serif; font-size: 14px; color: var(--ink); }
+.brand-sub { font-size: 11px; color: var(--ink-light); font-weight: 300; }
+.step-indicator {
+  font-size: 12px; color: var(--ink-light); font-weight: 300;
+  display: flex; align-items: center; gap: 8px;
+}
+.step-pip {
+  width: 20px; height: 3px; border-radius: 2px;
+  background: var(--border);
+}
+.step-pip.on { background: var(--moss); }
+
+/* ── LAYOUT ── */
+.shell { max-width: 700px; margin: 0 auto; padding: 0 24px; }
+
+/* ── SCREENS ── */
+.screen { display: none; padding: 48px 0 64px; }
+.screen.on { display: block; animation: up .3s ease; }
+@keyframes up { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+/* ── INTRO SCREEN ── */
+.eyebrow {
+  font-size: 11px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--moss); margin-bottom: 14px;
+}
+.hero-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 36px; line-height: 1.2; color: var(--ink);
+  letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.hero-title em { font-style: italic; color: var(--moss); }
+.hero-body {
+  font-size: 16px; color: var(--ink-mid); line-height: 1.75;
+  font-weight: 300; max-width: 580px; margin-bottom: 36px;
+}
+
+/* ── HOW IT WORKS ── */
+.how-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; margin-bottom: 40px; }
+.how-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 16px 16px 14px;
+}
+.how-num {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 24px; color: var(--moss); margin-bottom: 6px;
+}
+.how-title { font-size: 13px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.how-desc { font-size: 12px; color: var(--ink-light); line-height: 1.5; font-weight: 300; }
+
+/* ── INPUT SCREEN ── */
+.input-section { margin-bottom: 28px; }
+.field-label {
+  font-size: 12px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 8px; display: block;
+}
+.field-hint { font-size: 13px; color: var(--ink-mid); margin-bottom: 10px; font-weight: 300; font-style: italic; }
+textarea, input[type=text] {
+  width: 100%; padding: 12px 16px;
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-sm);
+  font-size: 15px; font-family: 'DM Sans', sans-serif; font-weight: 300;
+  background: var(--surface); color: var(--ink);
+  transition: border-color .15s, box-shadow .15s;
+  line-height: 1.6;
+}
+textarea { min-height: 90px; resize: vertical; }
+textarea:focus, input[type=text]:focus {
+  outline: none;
+  border-color: var(--moss);
+  box-shadow: 0 0 0 3px rgba(61,107,79,.07);
+}
+
+.chip-row { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 10px; }
+.chip {
+  padding: 6px 13px; border-radius: 20px;
+  border: 1px solid var(--border-md);
+  font-size: 13px; cursor: pointer;
+  background: var(--surface); color: var(--ink-mid);
+  transition: all .15s; user-select: none; font-weight: 400;
+}
+.chip:hover { border-color: var(--moss-md); color: var(--moss); }
+.chip.on { background: var(--moss-lt); border-color: var(--moss); color: var(--moss); font-weight: 500; }
+
+/* ── BUTTONS ── */
+.btn-row { display: flex; align-items: center; gap: 10px; margin-top: 32px; }
+.btn {
+  padding: 11px 22px; border-radius: var(--r-sm);
+  font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: 500;
+  cursor: pointer; border: 1px solid var(--border-md);
+  background: transparent; color: var(--ink); transition: all .15s;
+}
+.btn:hover { background: rgba(0,0,0,.04); }
+.btn.go { background: var(--moss); color: white; border-color: var(--moss); }
+.btn.go:hover { background: #2F5640; }
+.btn.ghost { color: var(--ink-mid); border-color: transparent; font-weight: 400; }
+.btn.ghost:hover { color: var(--ink); }
+.btn:disabled { opacity: .35; pointer-events: none; }
+
+
+/* ── DIRECTION / CLUSTER CARDS ── */
+.dir-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r);
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: all .18s;
+  display: flex; align-items: flex-start; gap: 14px;
+}
+.dir-card:hover { border-color: var(--border-md); }
+.dir-card.yes { border: 1.5px solid var(--moss); background: var(--moss-lt); }
+.dir-card.no { opacity: .45; }
+.dir-card-icon {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--warm); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px;
+}
+.dir-card.yes .dir-card-icon { background: var(--moss); }
+.dir-card-body { flex: 1; }
+.dir-card-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.dir-card.yes .dir-card-title { color: var(--moss); }
+.dir-card-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.55; font-weight: 300; }
+.dir-card-check {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0;
+  border: 1.5px solid var(--border-md);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 12px; color: transparent;
+  transition: all .15s; margin-top: 2px;
+}
+.dir-card.yes .dir-card-check { background: var(--moss); border-color: var(--moss); color: white; }
+
+/* ── LOADING ── */
+.loading-screen {
+  display: none; padding: 80px 0;
+  text-align: center;
+}
+.loading-screen.on { display: block; }
+.loading-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 22px; color: var(--ink); margin-bottom: 12px; font-style: italic;
+}
+.loading-sub { font-size: 14px; color: var(--ink-mid); font-weight: 300; margin-bottom: 32px; }
+.dots { display: inline-flex; gap: 6px; }
+.dots span {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--moss-md);
+  animation: dot 1.2s ease-in-out infinite;
+}
+.dots span:nth-child(2) { animation-delay: .2s; }
+.dots span:nth-child(3) { animation-delay: .4s; }
+@keyframes dot { 0%,80%,100%{opacity:.2;transform:scale(.8)} 40%{opacity:1;transform:scale(1)} }
+
+/* ── RESULTS ── */
+.results-header { margin-bottom: 32px; }
+.results-title {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 30px; line-height: 1.2; color: var(--ink);
+  letter-spacing: -0.02em; margin-bottom: 8px;
+}
+.results-sub { font-size: 15px; color: var(--ink-mid); font-weight: 300; }
+
+.view-tabs { display: flex; gap: 2px; background: var(--border); border-radius: var(--r-sm); padding: 3px; margin-bottom: 24px; width: fit-content; }
+.tab {
+  padding: 7px 16px; border-radius: 5px; cursor: pointer;
+  font-size: 13px; font-weight: 500; color: var(--ink-mid);
+  transition: all .15s; border: none; background: transparent;
+  font-family: 'DM Sans', sans-serif;
+}
+.tab.on { background: var(--surface); color: var(--ink); }
+
+.view { display: none; }
+.view.on { display: block; animation: up .25s ease; }
+
+/* ── RESULT SECTIONS ── */
+.result-block { margin-bottom: 28px; }
+.result-block-head {
+  font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--ink-light); margin-bottom: 12px;
+  display: flex; align-items: center; gap: 8px;
+}
+.result-block-head::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.role-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.role-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+}
+.role-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.role-why { font-size: 12px; color: var(--ink-mid); line-height: 1.5; font-weight: 300; margin-bottom: 8px; }
+.role-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+.role-tag {
+  font-size: 11px; padding: 2px 8px; border-radius: 10px;
+  font-weight: 400;
+}
+.tag-search { background: var(--blue-lt); color: var(--blue); }
+.tag-ind { background: var(--moss-lt); color: var(--moss); }
+.tag-resp { background: var(--gold-lt); color: var(--gold); }
+
+.industry-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+}
+.ind-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.ind-why { font-size: 13px; color: var(--ink-mid); font-weight: 300; margin-bottom: 8px; }
+.ind-roles { font-size: 12px; color: var(--ink-light); }
+.ind-roles strong { color: var(--ink-mid); font-weight: 500; }
+
+.resp-row {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+}
+.resp-left { flex: 1; }
+.resp-name { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 3px; }
+.resp-desc { font-size: 13px; color: var(--ink-mid); font-weight: 300; line-height: 1.5; }
+.resp-right { flex-shrink: 0; min-width: 180px; }
+.resp-titles { font-size: 12px; color: var(--ink-light); line-height: 1.7; }
+.resp-titles strong { display: block; font-size: 11px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 4px; }
+
+/* ── SUMMARY STATEMENT ── */
+.statement-wrap {
+  background: var(--ink);
+  border-radius: var(--r);
+  padding: 26px 28px;
+  margin: 28px 0;
+}
+.statement-ey { font-size: 11px; font-weight: 500; letter-spacing: .07em; text-transform: uppercase; color: rgba(255,255,255,.35); margin-bottom: 10px; }
+.statement-txt {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 18px; line-height: 1.6; color: white; font-style: italic;
+}
+.statement-txt .hl { color: var(--moss-md); font-style: normal; }
+
+/* ── COPY / EXPORT ── */
+.action-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; padding-bottom: 48px; }
+.action-btn {
+  padding: 9px 16px;
+  border: 1px solid var(--border-md);
+  border-radius: var(--r-sm);
+  font-size: 13px; font-family: 'DM Sans', sans-serif;
+  cursor: pointer; background: var(--surface); color: var(--ink);
+  transition: all .15s; font-weight: 400;
+}
+.action-btn:hover { border-color: var(--moss); color: var(--moss); background: var(--moss-lt); }
+
+.err { background: #FEF2F2; border: 1px solid #FECACA; border-radius: var(--r-sm); padding: 12px 16px; font-size: 13px; color: #991B1B; display: none; margin-top: 12px; }
+.err.on { display: block; }
+
+@media (max-width: 540px) {
+  .how-grid { grid-template-columns: 1fr; }
+  .role-grid { grid-template-columns: 1fr; }
+  .resp-row { flex-direction: column; }
+  .topbar { flex-wrap: wrap; gap: 8px; }
+  .hero-title { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <div class="brand-dot"></div>
+    <div>
+      <div class="brand-name">Career Transformation Partners</div>
+      <div class="brand-sub">Pivot Vocabulary Generator</div>
+    </div>
+  </div>
+  <div class="step-indicator">
+    <div class="step-pip on" id="pip1"></div>
+    <div class="step-pip" id="pip2"></div>
+    <div class="step-pip" id="pip3"></div>
+    <div class="step-pip" id="pip4"></div>
+    <div class="step-pip" id="pip5"></div>
+    <span id="step-lbl">Step 1 of 5</span>
+  </div>
+</div>
+
+<div class="shell">
+
+  <!-- SCREEN 1: INTRO -->
+  <div class="screen on" id="s-intro">
+    <div class="eyebrow">Before your pivot matrix</div>
+    <h1 class="hero-title">Find the language<br>for <em>what comes next.</em></h1>
+    <p class="hero-body">Most people get stuck not because they lack direction, but because they don't have the vocabulary to describe where they want to go — or to recognize the roles that are actually a fit. This tool fixes that. Tell us about your background and we'll generate a personalized menu of pivot options: roles you might not have considered, industries that want your skills, and the search terms that will actually surface them.</p>
+
+    <div class="how-grid">
+      <div class="how-card">
+        <div class="how-num">01</div>
+        <div class="how-title">Describe your background</div>
+        <div class="how-desc">In your own words — no polish needed. What you've done, what you're good at, what's drained you.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">02</div>
+        <div class="how-title">Get your pivot menu</div>
+        <div class="how-desc">Three views: roles by background, industries that fit, and what the work you want is actually called.</div>
+      </div>
+      <div class="how-card">
+        <div class="how-num">03</div>
+        <div class="how-title">Bring it to your worksheet</div>
+        <div class="how-desc">Copy your results into the Pivot Matrix worksheet to map your move and build your search strategy.</div>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn go" onclick="goTo('input')">Get started →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 2: INPUT -->
+  <div class="screen" id="s-input">
+    <div class="eyebrow">Step 1 of 3 — Your background</div>
+    <h1 class="hero-title">Tell us about<br><em>what you've done.</em></h1>
+    <p class="hero-body" style="margin-bottom:36px">Don't filter or polish this. The more honest and specific you are, the more useful your results will be.</p>
+
+    <div class="input-section">
+      <label class="field-label">What kinds of work have you done?</label>
+      <div class="field-hint">Roles, industries, responsibilities — whatever comes to mind. Include things you've only done occasionally.</div>
+      <textarea id="exp" placeholder="e.g. I managed a team of 10 in financial services, led customer success at a SaaS company, taught high school English, ran operations at a family business, did project management at a marketing agency..."></textarea>
+    </div>
+
+    <div class="input-section">
+      <label class="field-label">What work genuinely energizes you?</label>
+      <div class="field-hint">Be specific — not "creative work" but what kind? What would you do even if nobody was watching?</div>
+      <textarea id="energize" placeholder="e.g. Solving a complex problem from scratch, coaching or developing people, building something new, working with data to find a story, running a project end-to-end, presenting to a room..."></textarea>
+    </div>
+
+    <div class="input-section">
+      <label class="field-label">What do you never want to do again?</label>
+      <div class="field-hint">Honest answer only. What drains you, what bores you, what makes you dread Monday?</div>
+      <textarea id="drain" placeholder="e.g. Repetitive admin work, being micromanaged, no clear path forward, working in silos, roles that are purely reactive, anything that doesn't let me use my strengths..."></textarea>
+    </div>
+
+    <div class="input-section">
+      <label class="field-label">What industries or companies genuinely excite you?</label>
+      <div class="field-hint">Even if they feel far away. Even if you don't know how to get there.</div>
+      <textarea id="dream" placeholder="e.g. A mission-driven organization, a fast-growing startup, a company I actually use and believe in, something in healthcare, education, or tech — even if I'm not sure how to get there yet..." style="min-height:75px"></textarea>
+    </div>
+
+    <div class="input-section">
+      <label class="field-label">What type of work environment do you want? <span style="font-weight:300;text-transform:none;letter-spacing:0;font-size:12px;color:var(--ink-light)">(select all that apply)</span></label>
+
+      <div style="font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-light);margin-bottom:7px;margin-top:4px">Physical environment</div>
+      <div class="chip-row" id="env-chips" style="margin-bottom:16px">
+        <div class="chip" data-val="in-office">In-office</div>
+        <div class="chip" data-val="hybrid">Hybrid</div>
+        <div class="chip" data-val="fully remote">Fully remote</div>
+        <div class="chip" data-val="on-site or in the field">On-site / in the field</div>
+        <div class="chip" data-val="role that involves travel">Travel required</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-light);margin-bottom:7px">How you collaborate</div>
+      <div class="chip-row" id="collab-chips" style="margin-bottom:16px">
+        <div class="chip" data-val="mostly independent work">Mostly independent</div>
+        <div class="chip" data-val="small tight-knit team">Small tight-knit team</div>
+        <div class="chip" data-val="large cross-functional teams">Large cross-functional teams</div>
+        <div class="chip" data-val="client or customer facing">Client or customer facing</div>
+        <div class="chip" data-val="managing or leading others">Managing / leading others</div>
+        <div class="chip" data-val="being mentored and learning from others">Being mentored / learning</div>
+      </div>
+
+      <div style="font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-light);margin-bottom:7px">Speed &amp; pace</div>
+      <div class="chip-row" id="pace-chips">
+        <div class="chip" data-val="steady and predictable pace">Steady and predictable</div>
+        <div class="chip" data-val="fast-paced and always changing">Fast-paced, always changing</div>
+        <div class="chip" data-val="project-based with clear deadlines">Project-based</div>
+        <div class="chip" data-val="startup build-from-scratch energy">Startup energy</div>
+        <div class="chip" data-val="established processes and structure">Established structure</div>
+      </div>
+    </div>
+
+    <div id="err-input" class="err">Please fill in at least your experience and what energizes you before continuing.</div>
+
+    <div class="btn-row">
+      <button class="btn ghost" onclick="goTo('intro')">← Back</button>
+      <button class="btn go" onclick="generate()">Generate my pivot menu →</button>
+    </div>
+  </div>
+
+
+  <!-- SCREEN 3: BROAD DIRECTIONS -->
+  <div class="screen" id="s-directions">
+    <div class="eyebrow">Step 3 of 5 — Which direction feels right?</div>
+    <h1 class="hero-title">Do any of these<br><em>sound like you?</em></h1>
+    <p class="hero-body" style="margin-bottom:36px">Based on what you shared, here are the broad directions your background points toward. Select the ones that resonate — even if you're not sure yet. You can pick more than one.</p>
+    <div id="directions-cards" style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px"></div>
+    <div id="err-dir" class="err">Select at least one direction to continue.</div>
+    <div class="btn-row">
+      <button class="btn ghost" onclick="goTo('input')">← Back</button>
+      <button class="btn go" onclick="loadClusters()">These feel right →</button>
+    </div>
+  </div>
+
+  <!-- SCREEN 4: ROLE CLUSTERS -->
+  <div class="screen" id="s-clusters">
+    <div class="eyebrow">Step 4 of 5 — Getting more specific</div>
+    <h1 class="hero-title">Now narrow it down<br><em>a little further.</em></h1>
+    <p class="hero-body" style="margin-bottom:36px">Within the directions you chose, here are more specific clusters of work. Select the ones where you think — yes, that's actually what I want to be doing.</p>
+    <div id="clusters-cards" style="display:flex;flex-direction:column;gap:10px;margin-bottom:28px"></div>
+    <div id="err-cluster" class="err">Select at least one cluster to continue.</div>
+    <div class="btn-row">
+      <button class="btn ghost" onclick="goTo('directions')">← Back</button>
+      <button class="btn go" onclick="generateFull()">Build my vocabulary →</button>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-screen" id="s-loading">
+    <div class="loading-title" id="loading-msg">Reading your background...</div>
+    <div class="loading-sub">Building your personalized pivot vocabulary</div>
+    <div class="dots"><span></span><span></span><span></span></div>
+  </div>
+
+  <!-- SCREEN 3: RESULTS -->
+  <div class="screen" id="s-results">
+    <div class="results-header">
+      <h1 class="results-title">Your pivot vocabulary</h1>
+      <p class="results-sub">Three views of the same picture — browse all three, then bring what resonates into your worksheet.</p>
+    </div>
+
+    <div class="view-tabs">
+      <button class="tab on" onclick="showTab('roles')">By role</button>
+      <button class="tab" onclick="showTab('industry')">By industry</button>
+      <button class="tab" onclick="showTab('resp')">By responsibility</button>
+    </div>
+
+    <div class="view on" id="v-roles">
+      <div id="roles-body"><div class="dots" style="margin:40px auto;display:flex;justify-content:center"><span></span><span></span><span></span></div></div>
+    </div>
+    <div class="view" id="v-industry">
+      <div id="industry-body"><div class="dots" style="margin:40px auto;display:flex;justify-content:center"><span></span><span></span><span></span></div></div>
+    </div>
+    <div class="view" id="v-resp">
+      <div id="resp-body"><div class="dots" style="margin:40px auto;display:flex;justify-content:center"><span></span><span></span><span></span></div></div>
+    </div>
+
+    <div id="statement-section" style="display:none">
+      <div class="statement-wrap">
+        <div class="statement-ey">Your positioning statement</div>
+        <div class="statement-txt" id="statement-txt"></div>
+      </div>
+      <div class="action-row">
+        <button class="action-btn" onclick="copyStatement()">Copy my statement</button>
+        <button class="action-btn" onclick="copyAllResults()">Copy all results</button>
+        <button class="action-btn" onclick="goTo('input')">Start over</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const API = 'https://ctpproxy.liz-3f2.workers.dev';
+const MODEL = 'claude-sonnet-4-20250514';
+
+let state = { exp:'', energize:'', drain:'', dream:'', env:[], directions:[], clusters:[] };
+let results = { roles:'', industry:'', resp:'', statement:'' };
+
+document.querySelectorAll('#env-chips .chip, #collab-chips .chip, #pace-chips .chip').forEach(c => {
+  c.onclick = () => { c.classList.toggle('on'); };
+});
+
+function getEnv() {
+  return [...document.querySelectorAll('#env-chips .chip.on, #collab-chips .chip.on, #pace-chips .chip.on')].map(c => c.dataset.val);
+}
+
+function goTo(screen) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('s-loading').classList.remove('on');
+  if (screen === 'intro') { document.getElementById('s-intro').classList.add('on'); setPips(1); }
+  else if (screen === 'input') { document.getElementById('s-input').classList.add('on'); setPips(2); }
+  else if (screen === 'directions') { document.getElementById('s-directions').classList.add('on'); setPips(3); }
+  else if (screen === 'clusters') { document.getElementById('s-clusters').classList.add('on'); setPips(4); }
+  else if (screen === 'results') { document.getElementById('s-results').classList.add('on'); setPips(5); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setPips(n) {
+  [1,2,3,4,5].forEach(i => document.getElementById('pip'+i).classList.toggle('on', i <= n));
+  document.getElementById('step-lbl').textContent = `Step ${n} of 5`;
+}
+
+function showTab(name) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('on'));
+  event.target.classList.add('on');
+  document.getElementById('v-'+name).classList.add('on');
+}
+
+async function generate() {
+  const exp = document.getElementById('exp').value.trim();
+  const energize = document.getElementById('energize').value.trim();
+  if (!exp || !energize) { document.getElementById('err-input').classList.add('on'); return; }
+  document.getElementById('err-input').classList.remove('on');
+
+  state = { exp, energize, drain: document.getElementById('drain').value.trim(), dream: document.getElementById('dream').value.trim(), env: getEnv(), directions:[], clusters:[] };
+
+  showLoading('Reading your background...', 3);
+
+  try {
+    const raw = await callClaude(directionsPrompt());
+    const dirs = safeJSON(raw);
+    if (!dirs) throw new Error('parse');
+    renderDirectionCards(dirs);
+    goTo('directions');
+  } catch(e) {
+    hideLoading('input', 2);
+    document.getElementById('err-input').textContent = 'Something went wrong. Please try again.';
+    document.getElementById('err-input').classList.add('on');
+  }
+}
+
+async function loadClusters() {
+  const selected = [...document.querySelectorAll('#directions-cards .dir-card.yes')].map(c => c.dataset.label);
+  if (!selected.length) { document.getElementById('err-dir').classList.add('on'); return; }
+  document.getElementById('err-dir').classList.remove('on');
+  state.directions = selected;
+
+  showLoading('Finding your clusters...', 4);
+
+  try {
+    const raw = await callClaude(clustersPrompt());
+    const clusters = safeJSON(raw);
+    if (!clusters) throw new Error('parse');
+    renderClusterCards(clusters);
+    goTo('clusters');
+  } catch(e) {
+    hideLoading('directions', 3);
+    document.getElementById('err-dir').textContent = 'Something went wrong. Please try again.';
+    document.getElementById('err-dir').classList.add('on');
+  }
+}
+
+async function generateFull() {
+  const selected = [...document.querySelectorAll('#clusters-cards .dir-card.yes')].map(c => c.dataset.label);
+  if (!selected.length) { document.getElementById('err-cluster').classList.add('on'); return; }
+  document.getElementById('err-cluster').classList.remove('on');
+  state.clusters = selected;
+
+  showLoading('Building your vocabulary...', 5);
+
+  const msgs = ['Translating your experience...', 'Finding roles you haven\'t considered...', 'Mapping your industries...', 'Almost there...'];
+  let mi = 0;
+  const msgEl = document.getElementById('loading-msg');
+  const msgTimer = setInterval(() => { mi = (mi+1) % msgs.length; msgEl.textContent = msgs[mi]; }, 2200);
+
+  try {
+    const [rolesResult, industryResult, respResult, stmtResult] = await Promise.all([
+      callClaude(rolesPrompt()),
+      callClaude(industryPrompt()),
+      callClaude(respPrompt()),
+      callClaude(statementPrompt()),
+    ]);
+    clearInterval(msgTimer);
+    results = { roles: rolesResult, industry: industryResult, resp: respResult, statement: stmtResult };
+    renderResults();
+    goTo('results');
+  } catch(e) {
+    clearInterval(msgTimer);
+    hideLoading('clusters', 4);
+    document.getElementById('err-cluster').textContent = 'Something went wrong. Please try again.';
+    document.getElementById('err-cluster').classList.add('on');
+  }
+}
+
+function showLoading(msg, pip) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById('loading-msg').textContent = msg;
+  document.getElementById('s-loading').classList.add('on');
+  setPips(pip);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function hideLoading(screen, pip) {
+  document.getElementById('s-loading').classList.remove('on');
+  document.getElementById('s-' + screen).classList.add('on');
+  setPips(pip);
+}
+
+function renderDirectionCards(dirs) {
+  const container = document.getElementById('directions-cards');
+  container.innerHTML = '';
+  dirs.forEach(d => {
+    const card = document.createElement('div');
+    card.className = 'dir-card';
+    card.dataset.label = d.direction;
+    card.innerHTML = `
+      <div class="dir-card-icon">${d.icon || '→'}</div>
+      <div class="dir-card-body">
+        <div class="dir-card-title">${d.direction}</div>
+        <div class="dir-card-desc">${d.description}</div>
+      </div>
+      <div class="dir-card-check">✓</div>`;
+    card.onclick = () => {
+      card.classList.toggle('yes');
+      if (card.classList.contains('yes')) {
+        document.querySelectorAll('#directions-cards .dir-card:not(.yes)').forEach(c => c.classList.remove('no'));
+      }
+    };
+    container.appendChild(card);
+  });
+}
+
+function renderClusterCards(clusters) {
+  const container = document.getElementById('clusters-cards');
+  container.innerHTML = '';
+  clusters.forEach(c => {
+    const card = document.createElement('div');
+    card.className = 'dir-card';
+    card.dataset.label = c.cluster;
+    card.innerHTML = `
+      <div class="dir-card-icon" style="font-size:13px;font-weight:500;color:var(--moss-md);background:var(--moss-lt)">${c.icon || '+'}</div>
+      <div class="dir-card-body">
+        <div class="dir-card-title">${c.cluster}</div>
+        <div class="dir-card-desc">${c.description}</div>
+        <div style="margin-top:6px;display:flex;flex-wrap:wrap;gap:4px">${(c.exampleTitles||[]).map(t => `<span style="font-size:11px;padding:2px 8px;border-radius:10px;background:var(--blue-lt);color:var(--blue)">${t}</span>`).join('')}</div>
+      </div>
+      <div class="dir-card-check">✓</div>`;
+    card.onclick = () => { card.classList.toggle('yes'); };
+    container.appendChild(card);
+  });
+}
+
+function directionsPrompt() {
+  return `You are a career coach. Based on this person's background, generate 4-5 broad career directions their experience points toward.
+
+Background: "${state.exp}"
+Energized by: "${state.energize}"
+Wants to avoid: "${state.drain}"
+Dream direction: "${state.dream}"
+
+Respond with ONLY a JSON array (no markdown, no preamble):
+[
+  {
+    "direction": "Short name for this direction (4-6 words max)",
+    "description": "2 sentences: what this direction looks like in practice and why their background fits. Reference something specific they wrote.",
+    "icon": "A single relevant emoji"
+  }
+]
+
+Rules:
+- Make directions broad enough to cover multiple roles but specific enough to feel meaningful
+- Each should feel genuinely different from the others
+- At least one should be something they probably haven't considered
+- The description should create a moment of recognition — "yes, that's me" or "no, not quite"`;
+}
+
+function clustersPrompt() {
+  return `You are a career coach. Based on the broad directions this person selected, generate specific role clusters — tighter groupings of related job titles within those directions.
+
+Background: "${state.exp}"
+Energized by: "${state.energize}"
+Selected directions: ${state.directions.join(', ')}
+
+Respond with ONLY a JSON array (no markdown, no preamble):
+[
+  {
+    "cluster": "Name for this role cluster (e.g. 'Event coordination and production')",
+    "description": "1-2 sentences: what the day-to-day looks like in these roles. Be concrete and specific.",
+    "exampleTitles": ["Title 1", "Title 2", "Title 3"],
+    "icon": "A single relevant emoji"
+  }
+]
+
+Rules:
+- Generate 5-7 clusters that sit within or adjacent to their selected directions
+- Each cluster should represent a meaningfully different type of work
+- Example titles should be real job titles as they appear in postings
+- The description should help them recognize whether this is actually what they want to do`;
+}
+
+function rolesPrompt() {
+  return `You are a career coach generating a personalized "pivot vocabulary" for a client. Based on their background, generate a list of specific role titles they might not have considered that genuinely fit their experience.
+
+Background: "${state.exp}"
+Energized by: "${state.energize}"
+Wants to avoid: "${state.drain}"
+Dream industries/companies: "${state.dream}"
+Selected directions: ${state.directions.join(', ') || 'not specified'}
+Selected role clusters: ${state.clusters.join(', ') || 'not specified'}
+Work environment preferences: ${state.env.join(', ') || 'not specified'}
+
+Respond with ONLY a JSON array (no markdown, no preamble) of 8-10 role objects:
+[
+  {
+    "title": "Exact job title as it would appear in a posting",
+    "why": "One sentence: why this fits their specific background (reference what they actually wrote)",
+    "searchTerms": ["term1", "term2", "term3"],
+    "industryTag": "one industry label",
+    "responsibilityTag": "one core responsibility label"
+  }
+]
+
+Rules:
+- Include roles across a spectrum from "most realistic now" to "stretch target"
+- Be specific — not "Marketing Manager" but "Event Marketing Coordinator" or "Brand Activation Associate"
+- The "why" must reference something they actually wrote — not generic coaching language
+- Include at least 2 roles they probably haven't thought of
+- Search terms should be exact phrases someone would type into LinkedIn or Indeed`;
+}
+
+function industryPrompt() {
+  return `You are a career coach. Based on this client's background, identify the industries most likely to want their skills — including industries they may not have considered.
+
+Background: "${state.exp}"
+Energized by: "${state.energize}"
+Wants to avoid: "${state.drain}"
+Dream direction: "${state.dream}"
+
+Respond with ONLY a JSON array (no markdown, no preamble) of 5-7 industry objects:
+[
+  {
+    "name": "Industry name",
+    "why": "1-2 sentences: why their background is relevant here — be specific to what they wrote",
+    "connectionToBackground": "The specific thing in their background that makes them a natural fit",
+    "exampleRoles": ["Role 1", "Role 2", "Role 3"],
+    "exampleCompanies": ["Company or org type 1", "Company or org type 2", "Company or org type 3"],
+    "difficulty": "easy|manageable|stretch"
+  }
+]
+
+Include their dream industries if mentioned, but also surface 2-3 they probably haven't considered. Order from most accessible to biggest stretch.`;
+}
+
+function respPrompt() {
+  return `You are a career coach. This client is stuck on vague language like "creative work." Help them find precise, searchable vocabulary for the responsibilities they want.
+
+Background: "${state.exp}"
+Energized by: "${state.energize}"
+Wants to avoid: "${state.drain}"
+
+Respond with ONLY a JSON array (no markdown, no preamble) of 6-8 responsibility objects:
+[
+  {
+    "responsibility": "Precise name for this type of work (as a hiring manager would write it)",
+    "inTheirWords": "How they described this (quote or paraphrase from what they wrote)",
+    "jobTitlesHidingThis": ["Title 1", "Title 2", "Title 3", "Title 4"],
+    "searchPhrases": ["Exact search phrase 1", "Exact search phrase 2"]
+  }
+]
+
+The goal: translate their vague descriptions into precise language they can use when searching, networking, and interviewing. Each "responsibility" should be something that appears in real job postings.`;
+}
+
+function statementPrompt() {
+  return `You are a career coach. Write a powerful, specific positioning statement for this client based on their background and direction.
+
+Background: "${state.exp}"
+Energized by: "${state.energize}"
+Dream direction: "${state.dream}"
+Environment preferences: ${state.env.join(', ') || 'not specified'}
+
+Write ONE positioning statement (2-3 sentences) they can say out loud in a networking conversation or interview. 
+
+Rules:
+- Start with "I do my best work when..." or "I bring [X] years of..."
+- Use their specific language, not generic coaching speak
+- Reference their actual background and their actual target direction
+- Make it memorable and specific enough that a hiring manager would know exactly how to help them
+- Do NOT use quotes around the statement, just write it directly
+- Keep it under 60 words`;
+}
+
+async function callClaude(prompt) {
+  const res = await fetch(API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: MODEL, max_tokens: 1200, messages: [{ role: 'user', content: prompt }] })
+  });
+  if (!res.ok) throw new Error('API error');
+  const data = await res.json();
+  return data.content.map(b => b.text || '').join('');
+}
+
+function safeJSON(text) {
+  try {
+    const clean = text.replace(/```json|```/g, '').trim();
+    return JSON.parse(clean);
+  } catch(e) { return null; }
+}
+
+function renderResults() {
+  // Roles view
+  const roles = safeJSON(results.roles);
+  const rolesEl = document.getElementById('roles-body');
+  if (roles) {
+    const now = roles.filter((_, i) => i < 5);
+    const stretch = roles.filter((_, i) => i >= 5);
+    let html = '';
+    if (now.length) {
+      html += `<div class="result-block"><div class="result-block-head">Realistic now</div><div class="role-grid">`;
+      now.forEach(r => { html += roleCard(r); });
+      html += `</div></div>`;
+    }
+    if (stretch.length) {
+      html += `<div class="result-block"><div class="result-block-head">Worth building toward</div><div class="role-grid">`;
+      stretch.forEach(r => { html += roleCard(r); });
+      html += `</div></div>`;
+    }
+    rolesEl.innerHTML = html;
+  } else {
+    rolesEl.innerHTML = `<p style="color:var(--ink-mid);font-size:14px">${results.roles}</p>`;
+  }
+
+  // Industry view
+  const inds = safeJSON(results.industry);
+  const indEl = document.getElementById('industry-body');
+  if (inds) {
+    let html = '<div class="result-block"><div class="result-block-head">Industries that want your skills</div>';
+    inds.forEach(ind => {
+      const diffColor = ind.difficulty === 'easy' ? '#2D6A4F' : ind.difficulty === 'manageable' ? '#0F5E6E' : '#B45309';
+      const diffLabel = ind.difficulty === 'easy' ? '● Accessible now' : ind.difficulty === 'manageable' ? '●● Manageable pivot' : '●●● Stretch target';
+      html += `<div class="industry-row">
+        <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:4px">
+          <div class="ind-name">${ind.name}</div>
+          <span style="font-size:11px;font-weight:500;color:${diffColor};white-space:nowrap;flex-shrink:0">${diffLabel}</span>
+        </div>
+        <div class="ind-why">${ind.why}</div>
+        <div class="ind-roles"><strong>Roles to search:</strong> ${ind.exampleRoles.join(' · ')}</div>
+        <div class="ind-roles" style="margin-top:4px"><strong>Companies / orgs:</strong> ${ind.exampleCompanies.join(' · ')}</div>
+      </div>`;
+    });
+    html += '</div>';
+    indEl.innerHTML = html;
+  } else {
+    indEl.innerHTML = `<p style="color:var(--ink-mid);font-size:14px">${results.industry}</p>`;
+  }
+
+  // Responsibility view
+  const resps = safeJSON(results.resp);
+  const respEl = document.getElementById('resp-body');
+  if (resps) {
+    let html = '<div class="result-block"><div class="result-block-head">What the work you want is actually called</div>';
+    resps.forEach(r => {
+      html += `<div class="resp-row">
+        <div class="resp-left">
+          <div class="resp-name">${r.responsibility}</div>
+          <div class="resp-desc">"${r.inTheirWords}"</div>
+          <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px">
+            ${r.searchPhrases.map(p => `<span class="role-tag tag-search">${p}</span>`).join('')}
+          </div>
+        </div>
+        <div class="resp-right">
+          <div class="resp-titles"><strong>Job titles hiding this</strong>${r.jobTitlesHidingThis.join('<br>')}</div>
+        </div>
+      </div>`;
+    });
+    html += '</div>';
+    respEl.innerHTML = html;
+  } else {
+    respEl.innerHTML = `<p style="color:var(--ink-mid);font-size:14px">${results.resp}</p>`;
+  }
+
+  // Statement
+  const stEl = document.getElementById('statement-txt');
+  stEl.innerHTML = results.statement.replace(/\b(I bring|I do my best|looking for|where I can)\b/g, '<span class="hl">$1</span>');
+  document.getElementById('statement-section').style.display = 'block';
+}
+
+function roleCard(r) {
+  return `<div class="role-card">
+    <div class="role-title">${r.title}</div>
+    <div class="role-why">${r.why}</div>
+    <div class="role-tags">
+      ${r.searchTerms.map(t => `<span class="role-tag tag-search">${t}</span>`).join('')}
+      <span class="role-tag tag-ind">${r.industryTag}</span>
+      <span class="role-tag tag-resp">${r.responsibilityTag}</span>
+    </div>
+  </div>`;
+}
+
+function copyStatement() {
+  navigator.clipboard.writeText(results.statement).then(() => {
+    const btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy my statement', 2000);
+  });
+}
+
+function copyAllResults() {
+  const roles = safeJSON(results.roles);
+  const inds = safeJSON(results.industry);
+  const resps = safeJSON(results.resp);
+  let txt = 'MY PIVOT VOCABULARY — Career Transformation Partners\n\n';
+  txt += '── POSITIONING STATEMENT ──\n' + results.statement + '\n\n';
+  if (roles) {
+    txt += '── ROLES TO SEARCH ──\n';
+    roles.forEach(r => { txt += `${r.title}\n  Why: ${r.why}\n  Search: ${r.searchTerms.join(', ')}\n\n`; });
+  }
+  if (inds) {
+    txt += '── INDUSTRIES ──\n';
+    inds.forEach(i => { txt += `${i.name} (${i.difficulty})\n  ${i.why}\n  Roles: ${i.exampleRoles.join(', ')}\n\n`; });
+  }
+  if (resps) {
+    txt += '── RESPONSIBILITIES ──\n';
+    resps.forEach(r => { txt += `${r.responsibility}\n  Titles: ${r.jobTitlesHidingThis.join(', ')}\n  Search: ${r.searchPhrases.join(', ')}\n\n`; });
+  }
+  navigator.clipboard.writeText(txt).then(() => {
+    const btn = event.target;
+    btn.textContent = 'Copied!';
+    setTimeout(() => btn.textContent = 'Copy all results', 2000);
+  });
+}
+</script>
+</body>
+</html>
